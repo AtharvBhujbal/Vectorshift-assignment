@@ -21,7 +21,12 @@ export const DataForm = ({ integrationType, credentials }) => {
             formData.append('credentials', JSON.stringify(credentials));
             const response = await axios.post(`http://localhost:8000/integrations/${endpoint}/load`, formData);
             const data = response.data;
-            setLoadedData(data);
+            setLoadedData(JSON.stringify(data.map(item => ({
+            id: item?.id,
+            type: item.type,
+            name: item.name,
+            creation_time: item.creation_time
+        }))))
         } catch (e) {
             alert(e?.response?.data?.detail);
         }
@@ -34,7 +39,6 @@ export const DataForm = ({ integrationType, credentials }) => {
                     label="Loaded Data"
                     value={loadedData || ''}
                     sx={{mt: 2}}
-                    InputLabelProps={{ shrink: true }}
                     disabled
                 />
                 <Button
