@@ -1,4 +1,4 @@
-// slack.js
+// Hubspot.js
 import { useState, useEffect } from 'react';
 import {
     Box,
@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-export const SlackIntegration = ({ user, org, integrationParams, setIntegrationParams }) => {
+export const HubspotIntegration = ({ user, org, integrationParams, setIntegrationParams }) => {
     const [isConnected, setIsConnected] = useState(false);
     const [isConnecting, setIsConnecting] = useState(false);
 
@@ -20,7 +20,7 @@ export const SlackIntegration = ({ user, org, integrationParams, setIntegrationP
             const response = await axios.post(`http://localhost:8000/integrations/hubspot/authorize`, formData);
             const authURL = response?.data;
 
-            const newWindow = window.open(authURL, 'Slack Authorization', 'width=600, height=600');
+            const newWindow = window.open(authURL, 'Hubspot Authorization', 'width=600, height=600');
 
             const pollTimer = window.setInterval(() => {
                 if (newWindow?.closed !== false) { 
@@ -44,7 +44,7 @@ export const SlackIntegration = ({ user, org, integrationParams, setIntegrationP
             if (credentials) {
                 setIsConnecting(false);
                 setIsConnected(true);
-                setIntegrationParams(prev => ({ ...prev, credentials: credentials, type: 'Slack' }));
+                setIntegrationParams(prev => ({ ...prev, credentials: credentials, type: 'Hubspot' }));
             }
             setIsConnecting(false);
         } catch (e) {
@@ -73,7 +73,7 @@ export const SlackIntegration = ({ user, org, integrationParams, setIntegrationP
                         opacity: isConnected ? 1 : undefined
                     }}
                 >
-                    {isConnected ? 'Slack Connected' : isConnecting ? <CircularProgress size={20} /> : 'Connect to Slack'}
+                    {isConnected ? 'Hubspot Connected' : isConnecting ? <CircularProgress size={20} /> : 'Connect to Hubspot'}
                 </Button>
             </Box>
         </Box>
