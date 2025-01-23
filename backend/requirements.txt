@@ -167,3 +167,4 @@ websockets==11.0.3
 widgetsnbextension==4.0.5
 yarl==1.8.2
 hubspot-api-client==11.1.0
+dotenv==1.0.1
